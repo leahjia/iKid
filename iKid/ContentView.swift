@@ -32,58 +32,58 @@ struct ContentView: View {
 
 struct GoodJokeView: View {
     @State private var flipped = false
-        @State private var jokeIndex = 0
+    @State private var jokeIndex = 0
 
-        let jokes = [
+    let jokes = [
         (question: "Why did the coffee file a police report?", answer: "It got mugged"),
         (question: "How does a penguin build its house?", answer: "Igloos it together"),
         (question: "Why does the scarecrow win an award?", answer: "He was outstanding in his field")
-        ]
+    ]
 
-        var body: some View {
-            VStack(spacing: 20) {
-                Spacer()
-                    Spacer()
-                    ZStack {
-                        if !flipped {
-                            Text(jokes[jokeIndex].question)
-                                .font(.title)
-                                .padding()
-                                .rotation3DEffect(.degrees(flipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
-                                .animation(.linear(duration: 0.3), value: flipped)
-                        } else {
-                            Text(jokes[jokeIndex].answer)
-                                .font(.title)
-                                .padding()
-                                .rotation3DEffect(.degrees(flipped ? 0 : -180), axis: (x: 0, y: 1, z: 0))
-                                .animation(.linear(duration: 0.3), value: flipped)
-                        }
-                    }
-                .frame(width: 300, height: 200)
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    .shadow(radius: 5)
-
-                    Button("Show/Hide Answer") {
-                        withAnimation {
-                            flipped.toggle()
-                        }
-                    }
-                .buttonStyle(.borderedProminent)
-                    .padding()
-
-                    Button("Next Joke") {
-                        withAnimation {
-                            flipped = false
-                                jokeIndex = (jokeIndex + 1) % jokes.count
-                        }
-                    }
-                .buttonStyle(.bordered)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    .padding(30)
+    var body: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            Spacer()
+            ZStack {
+                if !flipped {
+                    Text(jokes[jokeIndex].question)
+                        .font(.title)
+                        .padding()
+                        .rotation3DEffect(.degrees(flipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+                        .animation(.linear(duration: 0.3), value: flipped)
+                } else {
+                    Text(jokes[jokeIndex].answer)
+                        .font(.title)
+                        .padding()
+                        .rotation3DEffect(.degrees(flipped ? 0 : -180), axis: (x: 0, y: 1, z: 0))
+                        .animation(.linear(duration: 0.3), value: flipped)
+                }
             }
+            .frame(width: 300, height: 200)
+            .background(Color.white)
+            .cornerRadius(12)
+            .shadow(radius: 5)
+
+            Button("Show/Hide Answer") {
+                withAnimation {
+                    flipped.toggle()
+                }
+            }
+            .buttonStyle(.borderedProminent)
             .padding()
+
+            Button("Next Joke") {
+                withAnimation {
+                    flipped = false
+                        jokeIndex = (jokeIndex + 1) % jokes.count
+                }
+            }
+            .buttonStyle(.bordered)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+            .padding(30)
         }
+        .padding()
+    }
 }
 
 struct PunJokeView: View {
