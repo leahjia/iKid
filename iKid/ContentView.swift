@@ -14,7 +14,7 @@ struct GoodJokeView: View {
     @State private var jokeIndex = 0
 
     let jokes = [
-        (question: "What do you call a fake noodle?", answer: "An impasta"),
+        (question: "Why did the coffee file a police report?", answer: "It got mugged"),
         (question: "How does a penguin build its house?", answer: "Igloos it together"),
         (question: "Why does the scarecrow win an award?", answer: "He was outstanding in his field")
     ]
@@ -24,21 +24,37 @@ struct GoodJokeView: View {
             Text(jokes[jokeIndex].question)
                 .font(.title)
                 .padding()
-                .transition(.slide)
+                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
 
             if showingAnswer {
                 Text(jokes[jokeIndex].answer)
                     .font(.title)
                     .padding()
                     .transition(.opacity)
+            } else {
+                Button("Show Answer") {
+                    withAnimation {
+                        showingAnswer = true
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .transition(.opacity)
             }
 
-            Button("Show Answer") {
+            Button("Next Joke") {
                 withAnimation {
-                    showingAnswer.toggle()
+                    showingAnswer = false
+                    jokeIndex = (jokeIndex + 1) % jokes.count
                 }
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+            .padding(30)
+        }
+        .padding()
+    }
+}
+
 
             Button("Next Joke") {
                 withAnimation {
